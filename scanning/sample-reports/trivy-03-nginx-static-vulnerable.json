@@ -1,0 +1,14 @@
+{
+  "_comment": "Amostra ilustrativa de saida do 'trivy image' contra cld-03-nginx-static-vulnerable (nginx:latest, root, server_tokens on).",
+  "ArtifactName": "cld-03-nginx-static-vulnerable",
+  "Summary": {
+    "os_vulnerabilities": { "CRITICAL": 0, "HIGH": 3, "MEDIUM": 10, "LOW": 6 },
+    "app_vulnerabilities": { "CRITICAL": 0, "HIGH": 0, "MEDIUM": 0, "LOW": 0 },
+    "secrets_detected": 0,
+    "misconfigurations": 2
+  },
+  "sample_findings": [
+    { "id": "misconfig", "pkg": "Dockerfile", "severity": "MEDIUM", "desc": "Imagem base usa tag 'latest' (build nao reprodutivel)" },
+    { "id": "misconfig", "pkg": "runtime", "severity": "LOW", "desc": "Container roda como root; nenhuma instrucao USER definida" }
+  ]
+}

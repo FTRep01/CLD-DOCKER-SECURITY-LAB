@@ -1,0 +1,11 @@
+{
+  "_comment": "Amostra ilustrativa de saida do 'trivy image' contra cld-01-node-express-hardened (node:20-alpine, multi-stage, non-root).",
+  "ArtifactName": "cld-01-node-express-hardened",
+  "Summary": {
+    "os_vulnerabilities": { "CRITICAL": 0, "HIGH": 0, "MEDIUM": 1, "LOW": 4 },
+    "app_vulnerabilities": { "CRITICAL": 0, "HIGH": 0, "MEDIUM": 0, "LOW": 1 },
+    "secrets_detected": 0,
+    "misconfigurations": 0
+  },
+  "sample_findings": []
+}

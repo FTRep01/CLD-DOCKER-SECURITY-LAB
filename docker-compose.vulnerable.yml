@@ -1,0 +1,23 @@
+# Stack de demonstração 100% vulnerável — todos os três casos expostos
+# com as más práticas intencionais. Use apenas em ambiente isolado.
+version: "3.9"
+
+services:
+  node-express-vuln:
+    build: ./cases/01-node-express/vulnerable
+    image: cld-01-node-express-vulnerable
+    ports:
+      - "3000:3000"
+    privileged: true   # (!) más práticas intencionais
+
+  python-flask-vuln:
+    build: ./cases/02-python-flask/vulnerable
+    image: cld-02-python-flask-vulnerable
+    ports:
+      - "5000:5000"
+
+  nginx-static-vuln:
+    build: ./cases/03-nginx-static/vulnerable
+    image: cld-03-nginx-static-vulnerable
+    ports:
+      - "8080:80"

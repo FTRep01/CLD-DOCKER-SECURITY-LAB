@@ -1,0 +1,7 @@
+# Exceções de scan — usar apenas para riscos aceitos e DOCUMENTADOS.
+# Referenciar via: trivy image --ignorefile scanning/trivy-ignore-policy.yaml <imagem>
+#
+# Exemplo (comentado): CVE sem correção disponível no momento, com mitigação
+# compensatória documentada em docs/remediation-reports/.
+#
+# CVE-2024-XXXXX  # Justificativa: sem patch upstream; mitigado por WAF (ver CLD-D0X)

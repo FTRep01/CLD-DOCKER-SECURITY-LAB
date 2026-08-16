@@ -1,0 +1,11 @@
+{
+  "_comment": "Amostra ilustrativa de saida do 'trivy image' contra cld-02-python-flask-hardened (python:3.12-slim, gunicorn, non-root).",
+  "ArtifactName": "cld-02-python-flask-hardened",
+  "Summary": {
+    "os_vulnerabilities": { "CRITICAL": 0, "HIGH": 0, "MEDIUM": 2, "LOW": 5 },
+    "app_vulnerabilities": { "CRITICAL": 0, "HIGH": 0, "MEDIUM": 0, "LOW": 0 },
+    "secrets_detected": 0,
+    "misconfigurations": 0
+  },
+  "sample_findings": []
+}

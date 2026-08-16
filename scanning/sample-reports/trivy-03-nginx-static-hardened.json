@@ -1,0 +1,11 @@
+{
+  "_comment": "Amostra ilustrativa de saida do 'trivy image' contra cld-03-nginx-static-hardened (nginx-unprivileged:1.27-alpine).",
+  "ArtifactName": "cld-03-nginx-static-hardened",
+  "Summary": {
+    "os_vulnerabilities": { "CRITICAL": 0, "HIGH": 0, "MEDIUM": 0, "LOW": 2 },
+    "app_vulnerabilities": { "CRITICAL": 0, "HIGH": 0, "MEDIUM": 0, "LOW": 0 },
+    "secrets_detected": 0,
+    "misconfigurations": 0
+  },
+  "sample_findings": []
+}

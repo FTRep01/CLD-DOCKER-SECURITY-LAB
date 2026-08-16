@@ -1,0 +1,14 @@
+{
+  "_comment": "Amostra ilustrativa de saida do 'trivy image' contra cld-02-python-flask-vulnerable (python:3.9).",
+  "ArtifactName": "cld-02-python-flask-vulnerable",
+  "Summary": {
+    "os_vulnerabilities": { "CRITICAL": 3, "HIGH": 18, "MEDIUM": 35, "LOW": 12 },
+    "app_vulnerabilities": { "CRITICAL": 0, "HIGH": 1, "MEDIUM": 2, "LOW": 0 },
+    "secrets_detected": 1,
+    "misconfigurations": 2
+  },
+  "sample_findings": [
+    { "id": "secret", "pkg": "Dockerfile ARG/ENV", "severity": "HIGH", "desc": "DB_PASSWORD hardcoded via build ARG, persiste no historico de layers" },
+    { "id": "misconfig", "pkg": "app.py", "severity": "CRITICAL", "desc": "Flask debug=True habilitado (Werkzeug console pode permitir RCE se exposto)" }
+  ]
+}

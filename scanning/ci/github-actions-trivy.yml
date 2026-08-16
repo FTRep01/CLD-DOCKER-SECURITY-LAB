@@ -1,0 +1,57 @@
+# Copie este arquivo para .github/workflows/trivy.yml no seu repositório.
+# Ele constrói cada imagem vulnerable/hardened e falha o PR se a versão
+# "hardened" apresentar qualquer CVE CRITICAL sem correção esperada.
+name: Docker Security Scan (Trivy)
+
+on:
+  pull_request:
+    paths:
+      - "cases/**"
+  push:
+    branches: [main]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        case: [01-node-express, 02-python-flask, 03-nginx-static]
+        variant: [vulnerable, hardened]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t cld-${{ matrix.case }}-${{ matrix.variant }} cases/${{ matrix.case }}/${{ matrix.variant }}
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.24.0
+        with:
+          image-ref: "cld-${{ matrix.case }}-${{ matrix.variant }}"
+          format: "sarif"
+          output: "trivy-${{ matrix.case }}-${{ matrix.variant }}.sarif"
+          severity: "CRITICAL,HIGH"
+          # Falha o job apenas para a variante "hardened":
+          # a variante "vulnerable" é esperada ter findings (é o propósito do lab).
+          exit-code: ${{ matrix.variant == 'hardened' && '1' || '0' }}
+
+      - name: Upload SARIF to GitHub Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: "trivy-${{ matrix.case }}-${{ matrix.variant }}.sarif"
+
+  hadolint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        case: [01-node-express, 02-python-flask, 03-nginx-static]
+        variant: [vulnerable, hardened]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lint Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: cases/${{ matrix.case }}/${{ matrix.variant }}/Dockerfile
+          # A variante "vulnerable" tem findings esperados (não falha o job);
+          # ajuste failure-threshold conforme necessário por variante.
+          failure-threshold: ${{ matrix.variant == 'hardened' && 'warning' || 'error' }}

@@ -1,0 +1,49 @@
+# Stack de demonstração hardened — mesmos três serviços, com as
+# contramedidas de runtime aplicadas (read-only FS, capabilities dropadas,
+# no-new-privileges, usuários não-root).
+version: "3.9"
+
+services:
+  node-express:
+    build: ./cases/01-node-express/hardened
+    image: cld-01-node-express-hardened
+    ports:
+      - "3000:3000"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - API_KEY=${API_KEY:-changeme-in-secret-manager}
+    tmpfs:
+      - /tmp
+
+  python-flask:
+    build: ./cases/02-python-flask/hardened
+    image: cld-02-python-flask-hardened
+    ports:
+      - "5000:5000"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - DB_PASSWORD=${DB_PASSWORD:-changeme-in-secret-manager}
+    tmpfs:
+      - /tmp
+
+  nginx-static:
+    build: ./cases/03-nginx-static/hardened
+    image: cld-03-nginx-static-hardened
+    ports:
+      - "8080:8080"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run

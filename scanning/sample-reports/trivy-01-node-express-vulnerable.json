@@ -1,0 +1,15 @@
+{
+  "_comment": "Amostra ilustrativa de saida do 'trivy image' contra cld-01-node-express-vulnerable (node:14). Gere a versao real com scanning/run-trivy.sh",
+  "ArtifactName": "cld-01-node-express-vulnerable",
+  "Summary": {
+    "os_vulnerabilities": { "CRITICAL": 4, "HIGH": 22, "MEDIUM": 41, "LOW": 15 },
+    "app_vulnerabilities": { "CRITICAL": 2, "HIGH": 6, "MEDIUM": 9, "LOW": 3 },
+    "secrets_detected": 2,
+    "misconfigurations": 3
+  },
+  "sample_findings": [
+    { "id": "CVE-2023-46809", "pkg": "node (base image)", "severity": "HIGH", "desc": "Node.js OpenSSL related vulnerability in EOL 14.x line" },
+    { "id": "CVE-2022-3602", "pkg": "openssl (OS layer)", "severity": "CRITICAL", "desc": "X.509 punycode buffer overflow" },
+    { "id": "secret", "pkg": "Dockerfile ENV", "severity": "HIGH", "desc": "Hardcoded value matching Stripe API key pattern in ENV API_KEY" }
+  ]
+}
